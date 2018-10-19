@@ -1,11 +1,11 @@
 # RealReachability
-[![Version](https://img.shields.io/badge/pod-1.1.8-yellow.svg)](http://cocoadocs.org/docsets/RealReachability/1.1.8/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](http://cocoadocs.org/docsets/RealReachability/1.1.8/)
-[![Platform](https://img.shields.io/badge/Platform-iOS-orange.svg)](http://cocoadocs.org/docsets/RealReachability/1.1.8/)
-[![Platform](https://img.shields.io/badge/Build-Passed-green.svg)](http://cocoadocs.org/docsets/RealReachability/1.1.8/)
-####We need to observe the REAL reachability of network for iOS. That's what RealReachability do.
+[![Version](https://img.shields.io/badge/pod-1.3.0-yellow.svg)](http://cocoadocs.org/docsets/RealReachability/1.3.0/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](http://cocoadocs.org/docsets/RealReachability/1.3.0)
+[![Platform](https://img.shields.io/badge/Platform-iOS-orange.svg)](http://cocoadocs.org/docsets/RealReachability/1.3.0/)
+[![Platform](https://img.shields.io/badge/Build-Passed-green.svg)](http://cocoadocs.org/docsets/RealReachability/1.3.0/)
+#### We need to observe the REAL reachability of network for iOS. That's what RealReachability do.
 
-#Why RealReachability?
+# Why RealReachability?
 As we know, we already have reachability framework for us to choose. Such as the famous repository [Reachability](https://github.com/tonymillion/Reachability).
 
 **BUT we really need a tool for us to get the reachability, not the local connection!**
@@ -22,7 +22,7 @@ We introduce ping module for us to check the real network status, together with 
 
 Enjoy it!
 
-#Quick Start With Cocoapods
+# Quick Start With Cocoapods
 [CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like RealReachability in your projects. You can install it with the following command:
 
 ```bash
@@ -35,7 +35,7 @@ To integrate RealReachability into your Xcode project using CocoaPods, specify i
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '6.0'
+platform :ios, '8.0'
 
 pod 'RealReachability'
 ```
@@ -61,7 +61,7 @@ RealReachability in your `Cartfile`:
 github "dustturtle/RealReachability"
 ```
 
-#Manual Start
+# Manual Start
 If you'd rather do everything by hand, just add the folder "RealReachability" to your project, then all of the files will be added to your project.
 
 
@@ -71,8 +71,8 @@ If you'd rather do everything by hand, just add the folder "RealReachability" to
   libraries. iOS 6.0+.
 - The SystemConfiguration Framework should be added to your project.
 
-#Usage
-####Start to notify(we suggest you to start notify in didFinishLaunchingWithOptions):
+# Usage
+#### Start to notify(we suggest you to start notify in didFinishLaunchingWithOptions):
 
 ```objective-c
 
@@ -81,7 +81,7 @@ If you'd rather do everything by hand, just add the folder "RealReachability" to
     return YES;
 }
 ```
-####Add Observer(anywhere you like):
+#### Add Observer(anywhere you like):
 ```objective-c
 [[NSNotificationCenter defaultCenter] addObserver:self
                                          selector:@selector(networkChanged:)
@@ -90,7 +90,7 @@ If you'd rather do everything by hand, just add the folder "RealReachability" to
 
 ```
 
-####Observer method like below:
+#### Observer method like below:
 ```objective-c
 - (void)networkChanged:(NSNotification *)notification
 {
@@ -100,7 +100,7 @@ If you'd rather do everything by hand, just add the folder "RealReachability" to
 }
 
 ```
-####Trigger realtime Reachability like below:
+#### Trigger realtime Reachability like below:
 ```objective-c
 [GLobalRealReachability reachabilityWithBlock:^(ReachabilityStatus status) {
         switch (status)
@@ -135,12 +135,18 @@ ReachabilityStatus status = [reachability currentReachabilityStatus];
 
 Once the reachabilityWithBlock was called, the "currentReachabilityStatus" will be refreshed synchronously.
 #### Set your own host for Ping (optional)
+##### Note that now we introduced the new feature "doublecheck" to make the status more reliable in 1.2.0!
 Please make sure the host you set here is available for pinging. Large, stable website suggested.   
 This step is optional. If you do not set this, our default host is: www.apple.com.   
 You may set your own host any time you like. Codes just like below:
+
 ```
 GLobalRealReachability.hostForPing = @"www.apple.com";
+GLobalRealReachability.hostForCheck = @"www.youOwnHostExample.com";
 ```
+We suggest you use two hosts: one your own(if you have one available for pinging), one public; Just like the example below.
+
+For more details about the "doublecheck" feature, you can go deep into the codes.
 
 #### Get current WWAN type (optional)
 ```
@@ -148,6 +154,11 @@ GLobalRealReachability.hostForPing = @"www.apple.com";
 
 ```
 Current WWAN type might be used to improve your app's user experience(e.g, set different network request timeout interval for different WWAN type).
+#### Check the VPN status of your network
+```
+- (BOOL)isVPNOn;
+```
+With the help of this method, we have improved our reachability check logic when using VPN.
 #### More:
 We can also use PingHelper or LocalConnection alone to make a ping action or just observe the local connection.  
 Pod usage like blow (we have two pod subspecs):
@@ -170,7 +181,7 @@ This is the only API we need to invoke about Ping:
 **More about its usage**, please see the **LocalConnection.h** or codes in [**the demo project**](https://github.com/dustturtle/RealReachability). 
 
 
-#Demo
+# Demo
 We already put the demo project in the [repository](https://github.com/dustturtle/RealReachability).
 
 # License
@@ -183,5 +194,5 @@ Please use and improve! Patches accepted, or create an issue.
 
 I'd love it if you could send me a note as to which app you're using it with! Thank you!
 
-##[中文版使用指南](http://blog.csdn.net/openglnewbee/article/details/50705146)
+## [中文版使用指南](http://blog.csdn.net/openglnewbee/article/details/50705146)
 

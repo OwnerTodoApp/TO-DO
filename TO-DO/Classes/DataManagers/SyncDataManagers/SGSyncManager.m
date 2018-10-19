@@ -6,7 +6,6 @@
 //  Copyright © 2016年 com.siegrain. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager+Synchronous.h"
 #import "AppDelegate.h"
 #import "CDTodo.h"
 #import "DateUtil.h"
@@ -14,7 +13,7 @@
 #import "LCTodo.h"
 #import "SCLAlertHelper.h"
 #import "SGSyncManager.h"
-
+#import <AFHTTPSessionManager+Synchronous.h>
 typedef NS_ENUM(NSInteger, TodoFetchType) {
     TodoFetchTypeCommit,
     TodoFetchTypeDownload
@@ -507,9 +506,9 @@ static NSInteger const kMaximumSyncCountPerFetch = 100;
  */
 - (NSDate *)serverDate {
     NSDictionary *parameters = @{@"X-LC-Id": kLeanCloudAppID, @"X-LC-Key": kLeanCloudAppKey};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSError *error = nil;
-    NSDictionary *responseObject = [manager syncGET:kLeanCloudServerDateApiUrl parameters:parameters operation:nil error:&error];
+    NSDictionary *responseObject = [manager syncGET:kLeanCloudServerDateApiUrl parameters:parameters task:nil error:&error];
     if (error) return [self.errorHandler returnWithError:error description:Localized(@"Sync error: failed to fetch timestamp from server, please retry")];
     
     NSDate *serverDate = [DateUtil dateFromISO8601String:responseObject[@"iso"]];

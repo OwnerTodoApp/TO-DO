@@ -20,6 +20,9 @@
 
 
 #import <UIKit/UIKit.h>
+#if RT_INTERACTIVE_PUSH
+#import <RTInteractivePush/UINavigationController+InteractivePush.h>
+#endif
 
 #import "UIViewController+RTRootNavigationController.h"
 
@@ -62,7 +65,7 @@ IB_DESIGNABLE
  */
 @property (nonatomic, assign) IBInspectable BOOL useSystemBackBarButtonItem;
 
-/// Weather each individual navigation bar uses the visual style of root navigation bar. Default is @b YES
+/// Weather each individual navigation bar uses the visual style of root navigation bar. Default is @b NO
 @property (nonatomic, assign) IBInspectable BOOL transferNavigationBarAttributes;
 
 /*!
@@ -81,7 +84,7 @@ IB_DESIGNABLE
 @property (nonatomic, readonly, strong) NSArray <__kindof UIViewController *> *rt_viewControllers;
 
 /**
- *  Init with a root view controller without wrapping
+ *  Init with a root view controller without wrapping into a navigation controller
  *
  *  @param rootViewController The root view controller
  *
@@ -107,6 +110,16 @@ IB_DESIGNABLE
 - (void)pushViewController:(UIViewController *)viewController
                   animated:(BOOL)animated
                   complete:(void(^)(BOOL finished))block;
+
+/*!
+ *  @brief Pop current view controller on top with a complete handler
+ *
+ *  @param animated       use animation or not
+ *  @param block          complete handler
+ *
+ *  @return The current UIViewControllers(content controller) poped from the stack
+ */
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated complete:(void(^)(BOOL finished))block;
 
 /*!
  *  @brief Pop to a specific view controller with a complete handler

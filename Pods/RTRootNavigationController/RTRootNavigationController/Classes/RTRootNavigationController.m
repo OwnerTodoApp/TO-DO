@@ -176,7 +176,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         
         self.contentViewController = controller;
         self.containerNavigationController = [[RTContainerNavigationController alloc] initWithNavigationBarClass:navigationBarClass
-                                                                                                     toolbarClass:nil];
+                                                                                                    toolbarClass:nil];
         if (yesOrNo) {
             UIViewController *vc = [UIViewController new];
             vc.title = backTitle;
@@ -216,14 +216,32 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     return [self initWithController:controller navigationBarClass:nil];
 }
 
+- (instancetype)initWithContentController:(UIViewController *)controller
+{
+    self = [super init];
+    if (self) {
+        self.contentViewController = controller;
+        [self addChildViewController:self.contentViewController];
+        [self.contentViewController didMoveToParentViewController:self];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.containerNavigationController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.containerNavigationController.view];
-    
-    // fix issue #16 https://github.com/rickytan/RTRootNavigationController/issues/16
-    self.containerNavigationController.view.frame = self.view.bounds;
+    if (self.containerNavigationController) {
+        self.containerNavigationController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:self.containerNavigationController.view];
+        
+        // fix issue #16 https://github.com/rickytan/RTRootNavigationController/issues/16
+        self.containerNavigationController.view.frame = self.view.bounds;
+    }
+    else {
+        self.contentViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.contentViewController.view.frame = self.view.bounds;
+        [self.view addSubview:self.contentViewController.view];
+    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -232,6 +250,16 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     
     // remove the following to fix issue #16 https://github.com/rickytan/RTRootNavigationController/issues/16
     // self.containerNavigationController.view.frame = self.view.bounds;
+}
+
+- (BOOL)becomeFirstResponder
+{
+    return [self.contentViewController becomeFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return [self.contentViewController canBecomeFirstResponder];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -248,6 +276,28 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 {
     return [self.contentViewController preferredStatusBarUpdateAnimation];
 }
+
+#if __IPHONE_11_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+- (nullable UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures
+{
+    return self.contentViewController;
+}
+
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures
+{
+    return [self.contentViewController preferredScreenEdgesDeferringSystemGestures];
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return [self.contentViewController prefersHomeIndicatorAutoHidden];
+}
+
+- (UIViewController *)childViewControllerForHomeIndicatorAutoHidden
+{
+    return self.contentViewController;
+}
+#endif
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -303,6 +353,13 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 {
     return self.contentViewController.tabBarItem;
 }
+
+#if RT_INTERACTIVE_PUSH
+- (nullable __kindof UIViewController *)rt_nextSiblingController
+{
+    return self.contentViewController.rt_nextSiblingController;
+}
+#endif
 
 @end
 
@@ -376,6 +433,16 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         }
     }
     return nil;
+}
+
+- (NSArray *)viewControllers
+{
+    if (self.navigationController) {
+        if ([self.navigationController isKindOfClass:[RTRootNavigationController class]]) {
+            return self.rt_navigationController.rt_viewControllers;
+        }
+    }
+    return [super viewControllers];
 }
 
 - (UIViewController *)viewControllerForUnwindSegueAction:(SEL)action
@@ -469,6 +536,43 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return [self.topViewController preferredStatusBarStyle];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return [self.topViewController prefersStatusBarHidden];
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return [self.topViewController preferredStatusBarUpdateAnimation];
+}
+
+#if __IPHONE_11_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+- (nullable UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures
+{
+    return self.topViewController;
+}
+
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures
+{
+    return [self.topViewController preferredScreenEdgesDeferringSystemGestures];
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden
+{
+    return [self.topViewController prefersHomeIndicatorAutoHidden];
+}
+
+- (UIViewController *)childViewControllerForHomeIndicatorAutoHidden
+{
+    return self.topViewController;
+}
+#endif
+
 @end
 
 
@@ -495,6 +599,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     self.viewControllers = [super viewControllers];
 }
 
@@ -507,7 +612,8 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     return self;
 }
 
-- (instancetype)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass
+- (instancetype)initWithNavigationBarClass:(Class)navigationBarClass
+                              toolbarClass:(Class)toolbarClass
 {
     self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
     if (self) {
@@ -527,9 +633,10 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 
 - (instancetype)initWithRootViewControllerNoWrapping:(UIViewController *)rootViewController
 {
-    self = [super init];
+    self = [super initWithRootViewController:[[RTContainerController alloc] initWithContentController:rootViewController]];
     if (self) {
-        [super pushViewController:rootViewController animated:NO];
+        //        [super pushViewController:rootViewController
+        //                         animated:NO];
         [self _commonInit];
     }
     return self;
@@ -582,7 +689,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                                                            viewController.rt_navigationBarClass,
                                                            self.useSystemBackBarButtonItem,
                                                            currentLast.navigationItem.backBarButtonItem,
-                                                           currentLast.title)
+                                                           currentLast.navigationItem.title ?: currentLast.title)
                          animated:animated];
     }
     else {
@@ -739,6 +846,23 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                     animated:animated];
 }
 
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated complete:(void (^)(BOOL))block
+{
+    if (self.animationBlock) {
+        self.animationBlock(NO);
+    }
+    self.animationBlock = block;
+    
+    UIViewController *vc = [self popViewControllerAnimated:animated];
+    if (!vc) {
+        if (self.animationBlock) {
+            self.animationBlock(YES);
+            self.animationBlock = nil;
+        }
+    }
+    return vc;
+}
+
 - (NSArray <__kindof UIViewController *> *)popToViewController:(UIViewController *)viewController
                                                       animated:(BOOL)animated
                                                       complete:(void (^)(BOOL))block
@@ -783,11 +907,34 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                     animated:(BOOL)animated
 {
     BOOL isRootVC = viewController == navigationController.viewControllers.firstObject;
+    viewController = RTSafeUnwrapViewController(viewController);
     if (!isRootVC) {
-        viewController = RTSafeUnwrapViewController(viewController);
-        if (!self.useSystemBackBarButtonItem && !viewController.navigationItem.leftBarButtonItem) {
-            viewController.navigationItem.leftBarButtonItem = [viewController customBackItemWithTarget:self
-                                                                                                action:@selector(onBack:)];
+        
+        BOOL hasSetLeftItem = viewController.navigationItem.leftBarButtonItem != nil;
+        if (hasSetLeftItem && !viewController.rt_hasSetInteractivePop) {
+            viewController.rt_disableInteractivePop = YES;
+        }
+        else if (!viewController.rt_hasSetInteractivePop) {
+            viewController.rt_disableInteractivePop = NO;
+        }
+        if (!self.useSystemBackBarButtonItem && !hasSetLeftItem) {
+            if ([viewController respondsToSelector:@selector(rt_customBackItemWithTarget:action:)]) {
+                viewController.navigationItem.leftBarButtonItem = [viewController rt_customBackItemWithTarget:self
+                                                                                                       action:@selector(onBack:)];
+            }
+            else if ([viewController respondsToSelector:@selector(customBackItemWithTarget:action:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                viewController.navigationItem.leftBarButtonItem = [viewController customBackItemWithTarget:self
+                                                                                                    action:@selector(onBack:)];
+#pragma clang diagnostic pop
+            }
+            else {
+                viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil)
+                                                                                                   style:UIBarButtonItemStylePlain
+                                                                                                  target:self
+                                                                                                  action:@selector(onBack:)];
+            }
         }
     }
     
@@ -863,8 +1010,8 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     if ([self.rt_delegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
         return [self.rt_delegate navigationController:navigationController
                       animationControllerForOperation:operation
-                                   fromViewController:fromVC
-                                     toViewController:toVC];
+                                   fromViewController:RTSafeUnwrapViewController(fromVC)
+                                     toViewController:RTSafeUnwrapViewController(toVC)];
     }
     return nil;
 }

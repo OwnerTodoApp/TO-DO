@@ -155,7 +155,7 @@
 
 + (CGFloat)folderSizeAtPath:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    CGFloat folderSize;
+    CGFloat folderSize = 0.0;
     if ([fileManager fileExistsAtPath:path]) {
         NSArray *childFiles = [fileManager subpathsAtPath:path];
         for (NSString *fileName in childFiles) {
@@ -178,7 +178,7 @@
             [fileManager removeItemAtPath:absolutePath error:nil];
         }
     }
-    [[SDImageCache sharedImageCache] cleanDisk];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
 }
 
 

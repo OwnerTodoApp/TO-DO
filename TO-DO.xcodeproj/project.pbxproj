@@ -53,6 +53,7 @@
 		F1F6AEBEB453076146F8EB8C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F1F6A821DF9F69042E01F723 /* LICENSE */; };
 		F1F6AEC811EE3F1EDA63C256 /* RNObserverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F6ADF09588232CDE1AAF8D /* RNObserverManager.m */; };
 		F1F6AF45A097CB00BA92DD46 /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F6AF695552B0187E974543 /* DetailModel.m */; };
+		F79984422179CF1E008AACD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F996A8121E0BFC0300732C4C /* MessageUI.framework */; };
 		F9096E4F1DCB53DB007D746D /* header bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F9096E4E1DCB53DB007D746D /* header bg.png */; };
 		F921F4D41CECA023004AC07E /* UINavigationController+Transparent.m in Sources */ = {isa = PBXBuildFile; fileRef = F921F4D31CECA023004AC07E /* UINavigationController+Transparent.m */; };
 		F92B876D1CE368B300D15EAE /* UIView+Extentsion.m in Sources */ = {isa = PBXBuildFile; fileRef = F92B876C1CE368B300D15EAE /* UIView+Extentsion.m */; };
@@ -105,7 +106,6 @@
 		F98DE68C1CFDCE6B00859A81 /* TodoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F98DE68B1CFDCE6B00859A81 /* TodoTableViewController.m */; };
 		F9964A991D02CD2F008387E5 /* LCSyncRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = F9964A981D02CD2F008387E5 /* LCSyncRecord.m */; };
 		F9964A9C1D030409008387E5 /* CDSyncRecord+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F9964A9B1D030409008387E5 /* CDSyncRecord+CoreDataProperties.m */; };
-		F996A8131E0BFC0300732C4C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F996A8121E0BFC0300732C4C /* MessageUI.framework */; };
 		F997BF9F1CF8376A00DD155B /* UIViewController+KNSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = F997BF9E1CF8376A00DD155B /* UIViewController+KNSemiModal.m */; };
 		F997BFA11CF8391C00DD155B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F997BFA01CF8391C00DD155B /* QuartzCore.framework */; };
 		F997BFA31CF83A6600DD155B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F997BFA21CF83A6600DD155B /* UIKit.framework */; };
@@ -409,7 +409,6 @@
 		F9D0E9771CEC46D10005027B /* UIImage+Qiniu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Qiniu.m"; sourceTree = "<group>"; };
 		F9DE3ED21CF4849F00653A56 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		F9DE3ED31CF4849F00653A56 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
-		F9E3EE3F1DFAB2B000686993 /* TO-DO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TO-DO.entitlements"; sourceTree = "<group>"; };
 		F9E3EE401DFAB5EC00686993 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		F9E953441CF853A00046E1C9 /* UUDatePicker_DateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUDatePicker_DateModel.h; sourceTree = "<group>"; };
 		F9E953451CF853A00046E1C9 /* UUDatePicker_DateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUDatePicker_DateModel.m; sourceTree = "<group>"; };
@@ -434,7 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F996A8131E0BFC0300732C4C /* MessageUI.framework in Frameworks */,
+				F79984422179CF1E008AACD0 /* MessageUI.framework in Frameworks */,
 				F9E3EE411DFAB5EC00686993 /* UserNotifications.framework in Frameworks */,
 				F997BFA71CF83A7C00DD155B /* CoreGraphics.framework in Frameworks */,
 				F997BFA51CF83A6C00DD155B /* Foundation.framework in Frameworks */,
@@ -1136,7 +1135,6 @@
 				F9A723AE1CDDF98100E3BC8E /* Classes */,
 				F99A90251CE30B5100EC0762 /* Localization */,
 				F9A723711CDDF8A800E3BC8E /* Supporting Files */,
-				F9E3EE3F1DFAB2B000686993 /* TO-DO.entitlements */,
 			);
 			path = "TO-DO";
 			sourceTree = "<group>";
@@ -1294,7 +1292,6 @@
 				F9A7236A1CDDF8A800E3BC8E /* Sources */,
 				F9A7236B1CDDF8A800E3BC8E /* Frameworks */,
 				F9A7236C1CDDF8A800E3BC8E /* Resources */,
-				C10E0D311FC85CA038AABD0C /* [CP] Embed Pods Frameworks */,
 				BF8D07832FF86FAECDE8495E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1353,7 +1350,7 @@
 				TargetAttributes = {
 					F9A7236D1CDDF8A800E3BC8E = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = Q23TGN5XUQ;
+						DevelopmentTeam = W692395U5W;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1443,13 +1440,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TO-DO-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF8D07832FF86FAECDE8495E /* [CP] Copy Pods Resources */ = {
@@ -1458,28 +1458,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TO-DO/Pods-TO-DO-resources.sh",
+				"${PODS_ROOT}/AMap2DMap/MAMapKit.framework/AMap.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/AutoLinearLayoutView/AutoLinearLayoutView.bundle",
+				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle",
+				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
+				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AutoLinearLayoutView.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IDMPhotoBrowser.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IDMPBLocalizations.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOWebViewControllerLocalizable.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TO-DO/Pods-TO-DO-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C10E0D311FC85CA038AABD0C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TO-DO/Pods-TO-DO-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TO-DO/Pods-TO-DO-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1758,8 +1756,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = "TO-DO/TO-DO.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = W692395U5W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1769,7 +1767,7 @@
 				INFOPLIST_FILE = "TO-DO/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.siegrain.todo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tongxing.demo.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/** $(PLATFORM_DIR)/Developer/Library/Frameworks";
@@ -1782,8 +1780,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = "TO-DO/TO-DO.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = W692395U5W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1793,7 +1791,7 @@
 				INFOPLIST_FILE = "TO-DO/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.siegrain.todo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tongxing.demo.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/** $(PLATFORM_DIR)/Developer/Library/Frameworks";

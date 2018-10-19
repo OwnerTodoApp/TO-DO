@@ -4,7 +4,7 @@
 //
 
 #import "SGLocating.h"
-#import "AMapSearchAPI.h"
+#import <AMapSearchKit/AMapSearchKit.h>
 #import "SGCoordinate.h"
 
 @interface SGLocating () <AMapSearchDelegate>

@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AMapLocation/AMapLocationKit/AMapLocationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @class SGCoordinate;
 

@@ -4,8 +4,8 @@
 //
 
 #import "SGCoordinate.h"
-#import "AMapCommonObj.h"
-#import "AMapLocationKit.h"
+#import <AMapSearchKit/AMapCommonObj.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface SGCoordinate ()
 @property(nonatomic, strong) id regeocode;

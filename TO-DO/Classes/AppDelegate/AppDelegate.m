@@ -265,7 +265,7 @@ static BOOL const kEnableViewControllerStateHolder = YES;
     if (!isForcing) if (syncType == SyncModeAutomatically && (!_cdUser.enableAutoSync || !_cdUser.enableAutoSync.boolValue)) return;
     
     __weak typeof(self) weakSelf = self;
-    [[GCDQueue globalQueueWithLevel:DISPATCH_QUEUE_PRIORITY_DEFAULT] sync:^{
+    [[GCDQueue globalQueueWithLevel:DISPATCH_QUEUE_PRIORITY_DEFAULT] async:^{
         if ([SGSyncManager isSyncing]) return;
         if (![weakSelf.window.rootViewController isKindOfClass:[JVFloatingDrawerViewController class]]) return;
         DrawerTableViewController *drawer = (DrawerTableViewController *) _drawerViewController.leftViewController;

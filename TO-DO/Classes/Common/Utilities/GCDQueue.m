@@ -17,7 +17,7 @@
 - (void)asyncWithGroup:(dispatch_group_t)group block:(dispatch_block_t)block
 {
     dispatch_group_async(group, self.queue, block);
-}
+} 
 - (void)asyncGroupNotify:(dispatch_group_t)group block:(dispatch_block_t)block
 {
     dispatch_group_notify(group, self.queue, block);
